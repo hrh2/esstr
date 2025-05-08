@@ -2,6 +2,7 @@ import Home from "./components/Home.jsx";
 import BlogPostWithComments from "./components/Blogs.jsx";
 import { BrowserRouter as Router, Navigate, Route, Routes } from 'react-router-dom';
 import Landing from "./components/Landing.jsx";
+import ErrorPage from "./components/ErrorPage.jsx";
 
 
 function App() {
