@@ -12,6 +12,7 @@ function App() {
             <Route path="/" element={<Home />}>
               <Route index element={<Landing/>} />
               <Route path="/rael" element={<BlogPostWithComments />} />
+                <Route path="*" element={<ErrorPage />} />
             </Route>
           </Routes>
         </Router>
