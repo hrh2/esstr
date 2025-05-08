@@ -26,7 +26,7 @@ function Landing() {
                                     Get in Touch
                                 </a>
                                 <a
-                                    href="/real"
+                                    href="/rael"
                                     className="bg-gradient-to-r  from-pink-500 via-purple-500 to-indigo-500 font-bold text-white px-6 py-3 rounded-full inline-block shadow-lg hover:brightness-110 hover:scale-105 transform transition-all duration-300"
                                 >
                                     SEE TRENDS

@@ -11,7 +11,7 @@ function App() {
           <Routes>
             <Route path="/" element={<Home />}>
               <Route index element={<Landing/>} />
-              <Route path="real" element={<BlogPostWithComments />} />
+              <Route path="/rael" element={<BlogPostWithComments />} />
             </Route>
           </Routes>
         </Router>
