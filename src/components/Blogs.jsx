@@ -6,6 +6,9 @@ import { fetchData, generateFancyName, sendData } from "../utils/helper.js";
 import CommentInput from "./CommentInput.jsx";
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation } from 'swiper/modules';
+import Zoom from 'react-medium-image-zoom';
+import 'react-medium-image-zoom/dist/styles.css';
+
 
 export default function BlogPostWithComments({ token }) {
     const [posts, setPosts] = useState([]);
@@ -83,6 +86,8 @@ export default function BlogPostWithComments({ token }) {
         }));
     };
 
+    const [currentSlide, setCurrentSlide] = useState({}); // store current slide index per post
+
     if (posts.length === 0) return <p className="bg-gradient-to-r  from-pink-500 via-purple-500 to-indigo-500 font-bold text-white px-6 py-3 rounded-full text-center py-10 h-screen flex items-center justify-center">Loading posts...</p>;
 
     return (
@@ -100,8 +105,8 @@ export default function BlogPostWithComments({ token }) {
             </div>
             <div className="container grid gap-6 md:grid-cols-2 grid-cols-1 w-full mx-auto">
                 {posts.map(post => (
-                    <div key={post._id} className="bg-white border-2 border-black rounded-xl shadow-md overflow-hidden hover:shadow-lg transition-shadow w-full">
-                        <div className="p-5">
+                    <div key={post._id} className="bg-white border-2  border-black rounded-xl shadow-md overflow-hidden hover:shadow-lg transition-shadow w-full">
+                        <div className="p-5 h-full">
                             <h3 className="text-xl font-semibold text-gray-800 mb-1">{post.title}</h3>
                             <p className="text-sm text-gray-500 mb-3">Posted on {formatDate(post.createdAt)}</p>
 
@@ -112,25 +117,41 @@ export default function BlogPostWithComments({ token }) {
                                     spaceBetween={10}
                                     slidesPerView={1}
                                     className="w-full rounded-lg mb-4"
+                                    onSlideChange={(swiper) =>
+                                        setCurrentSlide(prev => ({ ...prev, [post._id]: swiper.activeIndex }))
+                                    }
                                 >
                                     {post.images_url?.map((img, i) => (
                                         <SwiperSlide key={`img-${i}`}>
-                                            <img src={img} alt={`Post Image ${i + 1}`} className="w-full h-auto object-cover rounded-lg" />
+                                            <Zoom>
+                                                <img
+                                                    src={img}
+                                                    alt={`Post Image ${i + 1}`}
+                                                    className="w-full h-auto object-cover rounded-lg cursor-zoom-in"
+                                                />
+                                            </Zoom>
                                         </SwiperSlide>
                                     ))}
+
                                     {post.youtube_video?.map((video, i) => (
-                                        <SwiperSlide key={`vid-${i}`}>
-                                            <div className="aspect-w-16 aspect-h-9 w-full">
+                                        <SwiperSlide key={`vid-${i}`} className="!h-auto">
+                                            <div className="w-full #h-72">
                                                 <iframe
                                                     src={video.replace('watch?v=', 'embed/')}
                                                     title={`Video ${i}`}
-                                                    className="w-full h-full rounded-lg"
+                                                    className="w-full h-80 rounded-lg"
                                                     allowFullScreen
                                                 ></iframe>
                                             </div>
                                         </SwiperSlide>
+
                                     ))}
                                 </Swiper>
+                            )}
+                            {(post.images_url?.length > 0 || post.youtube_video?.length > 0) && (
+                                <div className="text-sm text-gray-600 text-center my-2">
+                                    Slide {((currentSlide[post._id] || 0) + 1)} of {post.images_url.length + post.youtube_video.length}
+                                </div>
                             )}
 
                             <p className="text-gray-800 md:text-xl text-md mb-3 line-clamp-4">{post.description}</p>
