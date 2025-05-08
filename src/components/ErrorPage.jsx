@@ -1,4 +1,3 @@
-// eslint-disable-next-line no-unused-vars
 import React from 'react';
 
 function ErrorPage() {
@@ -184,7 +183,6 @@ function ErrorPage() {
                             </svg>
 
                         </div>
-                        {/* eslint-disable-next-line react/no-unescaped-entities */}
                         <p className="text-sm md:text-base text-yellow-300 p-2 mb-4">The stuff you were looking for doesn't exist
                         </p>
                         <a href="/"
