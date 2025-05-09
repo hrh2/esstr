@@ -8,6 +8,7 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation } from 'swiper/modules';
 import Zoom from 'react-medium-image-zoom';
 import 'react-medium-image-zoom/dist/styles.css';
+import MarkdownViewer from "./MarkdownViewer.jsx";
 
 
 export default function BlogPostWithComments({ token }) {
@@ -127,7 +128,7 @@ export default function BlogPostWithComments({ token }) {
                                                 <img
                                                     src={img}
                                                     alt={`Post Image ${i + 1}`}
-                                                    className="w-full h-auto object-cover rounded-lg cursor-zoom-in"
+                                                    className="w-auto h-80 mx-auto object-cover rounded-lg cursor-zoom-in"
                                                 />
                                             </Zoom>
                                         </SwiperSlide>
@@ -154,8 +155,8 @@ export default function BlogPostWithComments({ token }) {
                                 </div>
                             )}
 
-                            <p className="text-gray-800 md:text-xl text-md mb-3 line-clamp-4">{post.description}</p>
-
+                            {/*<p className="text-gray-800 md:text-xl text-md mb-3 line-clamp-4">{post.description}</p>*/}
+                            <MarkdownViewer content={post.description} />
                             <div className="flex items-center justify-between text-gray-600 border-t border-b border-gray-200 py-3 mt-4">
                                 <button className="flex items-center gap-1 hover:text-blue-600">
                                     <ThumbsUp size={18} /> <span>Like</span>
@@ -195,7 +196,8 @@ export default function BlogPostWithComments({ token }) {
                                                         <h4 className="text-xs text-gray-500 mb-1">
                                                             {generateFancyName(comment._id)} • {formatDate(comment.createdAt)}
                                                         </h4>
-                                                        <p className="text-sm text-gray-800">{comment.content}</p>
+                                                        {/*<p className="text-sm text-gray-800">{comment.content}</p>*/}
+                                                        <MarkdownViewer content={comment.content} />
                                                     </div>
                                                 </div>
                                             ))}
